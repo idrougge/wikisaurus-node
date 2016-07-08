@@ -1,6 +1,6 @@
-/* Node.js-skript för att hämta antonymer och synonymer från Wikisaurus */
-/* Programmet använder en del finesser i ECMAscript 6, 
-   kör med argument --harmony_destructuring i äldre versioner av Node. */
+/* Node.js script for fetfching synonyms and antonyms from Wikisaurus */
+/* The program uses some features of ECMAscript 6, run with argument 
+   --harmony_destructuring in older versions of Node. */
 const express=require('express')
 const server=express()
 const Promise=require('promise')
@@ -20,7 +20,7 @@ function getThesaurus(error,res,body) {
 	if (!error && res.statusCode===200) {
 		var pageid=Object.keys(body.query.pages)[0]
 		if(pageid=='-1') {
-			console.log('Ordet saknas i Wikisaurus!')
+			console.log('Term is missing from Wikisaurus!')
 			API_OK=false
 			return
 		}

@@ -6,13 +6,13 @@
 <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
 </head>
 <body>
-<p id="placeholder">Väntar på data…</p>
-<label>Ord: </label>
+<p id="placeholder">Waiting for data…</p>
+<label>Term: </label>
 <input type="text" value="lazy">
-<button id="antonym">Hämta en antonym</button>
-<button id="synonym">Hämta en synonym</button>
-<button id="opposites">Hämta motsatspar</button>
-<button id="all">Hämta alla synonymer och antonymer</button>
+<button id="antonym">Fetch antonym</button>
+<button id="synonym">Fetch synonym</button>
+<button id="opposites">Fetch opposites</button>
+<button id="all">Fetch all synonyms and antonyms</button>
 
 <script>
 //var host='http://localhost:8124/'
@@ -20,35 +20,29 @@ var host='/'
 var term=''
 $('button').click(function() {
 	term=$('input').val()
-	console.log('sökord='+term)
 })
 $('#antonym').click(function() {
-	console.log('Klickade på antonymknappen')
-	console.log(host+'antonym?term='+term)
 	$.get(host+'antonym?term='+term, function(data, textStatus, jqXHR) {
 		console.log(data)
 		$("#placeholder").text("Antonym: " + data.antonyms);
 	})
 })
 $('#synonym').click(function() {
-	console.log('Klickade på synonymknappen')
 	$.get(host+'synonym?term='+term, function(data, textStatus, jqXHR) {
 		console.log(data)
 		$('#placeholder').text('Synonym: ' + data.synonyms)
 	})
 })
 $('#opposites').click(function() {
-	console.log('Klickade på motsatsknappen')
 	$.get(host+'opposites?term='+term, function(data,textStatus,jqXHR) {
 		console.log(data)
-		$('#placeholder').text('Appnamn: ' + data.name)
+		$('#placeholder').text('Opposites: ' + data.name)
 	})
 })
 $('#all').click(function() {
-	console.log('Klickade på allt-knappen')
 	$.get(host+'all?term='+term, function(data,textStatus,jqXHR) {
 		console.log(data)
-		$('#placeholder').text('Lista: ' + JSON.stringify(data))
+		$('#placeholder').text('List: ' + JSON.stringify(data))
 	})
 })
 </script>
