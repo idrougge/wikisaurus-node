@@ -35,21 +35,16 @@ function getThesaurus(error,res,body) {
 				nr++
 				var list=wikitree[nr].trim()
 				if(list.startsWith('{{ws beginlist}}')) {
-					var terms=list.match(/[^({|\s|(ws))]\w+-?\w+/g)
-					console.log(terms)
+					var terms=list.match(/[^\{\s\}"ws(\s|\|)"](\w|-|\s)+/g)
 					if(terms.shift()=='beginlist') {
 					}
 					else {
-						console.log('Listan var ingen giltig lista')
-						console.log(terms)
 						API_OK=false
 						return
 					}
 					if(terms.pop()=='endlist') {
 					}
 					else{
-						console.log('Listan var ingen giltig lista')
-						console.log(terms)
 						API_OK=false
 						return
 					}
@@ -74,7 +69,7 @@ function getThesaurus(error,res,body) {
 server.get('/',(req,res) => {
 	fs.readFile('./jquery-localhost.html', (error,content) => {
 		if(error) {
-			console.log("Couldn not reach html file")
+			console.log("Could not reach html file")
 			res.writeHead(500)
 			res.end()
 		}
